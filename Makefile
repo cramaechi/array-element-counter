@@ -1,5 +1,5 @@
 all:
-	g++ main.cpp -o array_element_counter
+	g++ main.cpp -o integer_counter
 
 clean:
-	rm array_element_counter
+	rm integer_counter
