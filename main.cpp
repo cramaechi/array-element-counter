@@ -1,6 +1,6 @@
 //A progam that reads in an array and prints out, in a two column format,
-//the distinct elements of the array in one column, and the number of its occurences
-//on the second column. 
+//the distinct elements of the array in one column, and the number of its
+//occurences on the second column. 
 #include <iostream>
 #include <iomanip>
 #include <cstdlib>
@@ -12,8 +12,8 @@ void input(int a[], int arraySize, int& numberUsed);
 //Postcondition: array a has been filled.
 
 void trackElementOccurence(const int a[], int numberUsed, int e[]);
-//Precondition: array a has been filled. numberUsed >= 1. Array a cannot be changed.
-//Postcondition: array e has been filled.
+//Precondition: array a has been filled. numberUsed >= 1. Array a cannot be
+//changed. Postcondition: array e has been filled.
 
 int keepCount(const int a[], int numberUsed, int targetIndex);
 //Precondition: array a has been filled. numberUsed and targetIndex >= 1.
@@ -61,116 +61,116 @@ const int ARRAY_SIZE = 50;
 
 int main()
 {
-	int a[ARRAY_SIZE], e[ARRAY_SIZE], numberUsed;
+    int a[ARRAY_SIZE], e[ARRAY_SIZE], numberUsed;
 
-	input(a, ARRAY_SIZE, numberUsed);
-	sort(a, numberUsed);
-	trackElementOccurence(a, numberUsed, e);
-	deleteRepeats(a, e, numberUsed);
-	output(a, numberUsed, e);
+    input(a, ARRAY_SIZE, numberUsed);
+    sort(a, numberUsed);
+    trackElementOccurence(a, numberUsed, e);
+    deleteRepeats(a, e, numberUsed);
+    output(a, numberUsed, e);
 
-	return 0;
+    return 0;
 }
 
 void input(int a[], int arraySize, int& numberUsed)
 {
-	int index = 0;
+    int index = 0;
 
-	cout<<"Enter up to "<<arraySize<<" numbers: ";
-	
+    cout<<"Enter up to "<<arraySize<<" numbers: ";
+
     do
-	{
-		cin>>a[index++];
-	}while(cin.peek() != '\n' && index < arraySize);
+    {
+        cin>>a[index++];
+    }while(cin.peek() != '\n' && index < arraySize);
     cout<<endl;
 
-	numberUsed = index;
+    numberUsed = index;
 }
 
 void trackElementOccurence(const int a[], int numberUsed, int e[])
 {
-	for (int i = 0; i < numberUsed; i++)
-		e[i] = keepCount(a, numberUsed, i);
+    for (int i = 0; i < numberUsed; i++)
+        e[i] = keepCount(a, numberUsed, i);
 }
 
 int keepCount(const int a[], int numberUsed, int targetIndex)
 {
-	int count = 1;
+    int count = 1;
 
-	for (int j = numberUsed - 1; j > targetIndex; j--)
-	{
-		if (a[j] == a[targetIndex])
-			++count;
-	}
+    for (int j = numberUsed - 1; j > targetIndex; j--)
+    {
+        if (a[j] == a[targetIndex])
+            ++count;
+    }
 
-	return count;
+    return count;
 }
 
 void sort(int a[], int numberUsed)
 {
-	int indexOfNextLargest;
+    int indexOfNextLargest;
 
-	for (int i = 0; i < numberUsed - 1; i++)
-	{
-		indexOfNextLargest = indexOfLargest(a, numberUsed, i);
-		swap(a[i], a[indexOfNextLargest]);
-	}
+    for (int i = 0; i < numberUsed - 1; i++)
+    {
+        indexOfNextLargest = indexOfLargest(a, numberUsed, i);
+        swap(a[i], a[indexOfNextLargest]);
+    }
 }
 
 int indexOfLargest(const int a[], int size, int startIndex)
 {
-	int max = a[startIndex], indexOfMax = startIndex;
+    int max = a[startIndex], indexOfMax = startIndex;
 
-	for (int index = startIndex + 1; index < size; index++)
-	{
-		if (a[index] > max)
-		{
-			max = a[index];
-			indexOfMax = index;
-		}
-	}
+    for (int index = startIndex + 1; index < size; index++)
+    {
+        if (a[index] > max)
+        {
+            max = a[index];
+            indexOfMax = index;
+        }
+    }
 
-	return indexOfMax;
+    return indexOfMax;
 }
 
 void swap(int& n1, int& n2)
 {
-	int temp;
-	temp = n1;
-	n1 = n2;
-	n2 = temp;
+    int temp;
+    temp = n1;
+    n1 = n2;
+    n2 = temp;
 }
 
 void deleteRepeats(int a[], int e[], int& numberUsed)
 {
-	for (int i = 0; i < numberUsed - 1; i++)
-		searchReplica(a, e, numberUsed, i);
+    for (int i = 0; i < numberUsed - 1; i++)
+        searchReplica(a, e, numberUsed, i);
 }
 
 void searchReplica(int a[], int e[], int& numberUsed, int targetIndex)
 {
-	for (int index = numberUsed - 1; index > targetIndex; index--)
-	{
-		if (a[index] == a[targetIndex])
-			pushElementForward(a, e, numberUsed, index);
-	}
+    for (int index = numberUsed - 1; index > targetIndex; index--)
+    {
+        if (a[index] == a[targetIndex])
+            pushElementForward(a, e, numberUsed, index);
+    }
 }
 
 void pushElementForward(int a[], int e[], int& numberUsed, int refillIndex)
 {
-	for (int startIndex = refillIndex; startIndex < numberUsed; startIndex++)
-	{
-		e[startIndex] = e[startIndex + 1];
-		a[startIndex] = a[startIndex + 1];
-	}
+    for (int startIndex = refillIndex; startIndex < numberUsed; startIndex++)
+    {
+        e[startIndex] = e[startIndex + 1];
+        a[startIndex] = a[startIndex + 1];
+    }
 
-	numberUsed--;
+    numberUsed--;
 }
 
 void output(int a[], int numberUsed, const int e[])
 {
-	cout<<setw(8)<<"Integer"<<setw(9)<<"Count\n";
-	
-	for(int i = 0; i < numberUsed; i++)
-		cout<<setw(2)<<a[i]<<setw(10)<<e[i]<<endl;
+    cout<<setw(8)<<"Integer"<<setw(9)<<"Count\n";
+
+    for(int i = 0; i < numberUsed; i++)
+        cout<<setw(2)<<a[i]<<setw(10)<<e[i]<<endl;
 }
